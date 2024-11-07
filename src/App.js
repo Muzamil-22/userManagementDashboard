@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React, { useContext } from "react";
+import { UserContext, UserProvider } from "./utils/UserContext";
+import UserTable from "./components/UserTable";
+import ThemeToggle from "./components/ThemeToggle";
+import "./index.css";
 
-function App() {
+const AppContent = () => {
+  const { theme } = useContext(UserContext);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={theme === "dark" ? "dark" : ""}>
+      <div className="min-h-screen p-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <header className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold">User Management Dashboard</h1>
+          <ThemeToggle />
+        </header>
+        <UserTable />
+      </div>
     </div>
   );
-}
+};
+
+const App = () => (
+  <UserProvider>
+    <AppContent />
+  </UserProvider>
+);
 
 export default App;
